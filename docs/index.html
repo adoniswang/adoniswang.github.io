@@ -1,3 +1,29 @@
-<html>
-    Hello World
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hello, world!</title>
+  <style>
+    /* 簡單版面與置中 */
+    html,body { height:100%; margin:0; font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .wrap { min-height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; padding:24px; box-sizing:border-box; }
+    button { padding:8px 14px; font-size:16px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Hello, world!</h1>
+    <p>歡迎來到你的第一個網頁 — 範例已就緒。</p>
+    <button id="greetBtn">按我示範 JavaScript</button> 就只是按鈕而已。
+  </main>
+
+  <script>
+    // 範例：按鈕點擊會在畫面顯示提示並在 console 打印訊息
+    document.getElementById('greetBtn').addEventListener('click', function() {
+      alert('Hello from JavaScript 👋');
+      console.log('Hello, world! — button clicked at', new Date().toISOString());
+    });
+  </script>
+</body>
 </html>
