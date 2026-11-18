@@ -1,5 +1,5 @@
 /**
- * 全站設定：品牌、導覽、聯絡方式。
+ * 全站設定：品牌、導覽、社群連結。
  */
 export const site = {
   name: 'Filo',
@@ -8,8 +8,6 @@ export const site = {
     'Filo 用 AI 自動辨識收據、發票與對帳單，整理成可直接匯入會計軟體的資料，讓事務所把時間留給更有價值的工作。',
   locale: 'zh-Hant',
   ogLocale: 'zh_TW',
-  // TODO: 換成正式的聯絡信箱
-  contactEmail: 'hello@example.com',
   nav: [
     { label: '功能', href: '#features' },
     { label: '運作方式', href: '#how' },

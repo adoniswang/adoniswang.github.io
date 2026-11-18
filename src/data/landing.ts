@@ -1,4 +1,3 @@
-import { site } from '@/config/site';
 import type { LandingContent } from './types';
 
 /**
@@ -101,7 +100,6 @@ export const landing: LandingContent = {
         price: '聯絡我們',
         description: '單據量大或需要客製匯出格式的事務所。',
         features: ['單據量依需求', '同仁帳號不限', '客製匯出格式', '專人導入協助'],
-        cta: { label: '與我們聯絡', href: `mailto:${site.contactEmail}` },
       },
     ],
   },

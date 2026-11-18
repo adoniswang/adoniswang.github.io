@@ -12,7 +12,7 @@ Node 版本見 `.nvmrc`（Astro 7 需要 Node >= 22.23.4）。
 
 ## 結構
 
-- `src/config/site.ts`：品牌名稱、導覽、聯絡方式
+- `src/config/site.ts`：品牌名稱、導覽、社群連結
 - `src/data/`：頁面內容（`landing.ts`）與型別（`types.ts`）
 - `src/lib/content.ts`：build 時取得內容的唯一入口，日後改從 API 取資料只改這裡
 - `src/lib/api.ts`：`apiFetch` / `isApiEnabled`，build 時與瀏覽器端共用
