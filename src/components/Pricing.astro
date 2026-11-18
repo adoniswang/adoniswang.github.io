@@ -1,21 +1,19 @@
 ---
-import type { Plan } from '@/data/types';
+import type { Plan, SectionHeading } from '@/data/types';
+import SectionHead from './SectionHead.astro';
 import Icon from './Icon.astro';
 
 interface Props {
-  plans: Plan[];
+  head: SectionHeading;
+  items: Plan[];
 }
 
-const { plans } = Astro.props;
+const { head, items: plans } = Astro.props;
 ---
 
 <section id="pricing" class="section section--soft">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">方案</span>
-      <h2>隨著團隊一起成長</h2>
-      <p>搶先體驗期間，所有方案皆可免費試用。</p>
-    </div>
+    <SectionHead head={head} />
     <ul class="plans">
       {
         plans.map((p) => (

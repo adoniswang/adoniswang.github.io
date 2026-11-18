@@ -1,16 +1,29 @@
 ---
 import { site } from '@/config/site';
+import type { Signup } from '@/data/types';
+
+interface Props {
+  signup: Signup;
+}
+
+const { signup } = Astro.props;
 ---
 
 <section id="signup" class="section">
   <div class="container">
     <div class="signup">
       <div class="signup__copy">
-        <h2>搶先體驗 {site.name}</h2>
-        <p>留下 Email，正式開放時我們會第一個通知你。不會寄送垃圾信。</p>
+        <h2>{signup.title}</h2>
+        <p>{signup.body}</p>
       </div>
 
-      <form class="signup__form" data-subscribe-form data-contact={site.contactEmail} novalidate>
+      <form
+        class="signup__form"
+        data-subscribe-form
+        data-contact={site.contactEmail}
+        data-success={signup.success}
+        novalidate
+      >
         <label class="visually-hidden" for="signup-email">Email</label>
         <input
           id="signup-email"
@@ -18,12 +31,12 @@ import { site } from '@/config/site';
           type="email"
           inputmode="email"
           autocomplete="email"
-          placeholder="you@company.com"
+          placeholder="you@firm.com.tw"
           required
         />
         <!-- 防機器人欄位：真人看不到，有填值就丟棄 -->
         <input class="visually-hidden" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button class="btn btn--primary" type="submit">加入候補名單</button>
+        <button class="btn btn--primary" type="submit">{signup.button}</button>
         <p class="signup__status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -69,8 +82,8 @@ import { site } from '@/config/site';
 
       // 尚未接後端：改用 mailto 備援
       if (!isApiEnabled()) {
-        const subject = encodeURIComponent('搶先體驗申請');
-        const body = encodeURIComponent(`我想加入候補名單：${email}`);
+        const subject = encodeURIComponent('Filo 試用申請');
+        const body = encodeURIComponent(`我想申請試用，聯絡信箱：${email}`);
         window.location.href = `mailto:${form.dataset.contact}?subject=${subject}&body=${body}`;
         setStatus('已開啟你的郵件程式，寄出後就完成登記了。', 'ok');
         return;
@@ -84,7 +97,7 @@ import { site } from '@/config/site';
           json: { email, source: 'landing' } satisfies SubscribeRequest,
         });
         form.reset();
-        setStatus('完成！正式開放時我們會通知你。', 'ok');
+        setStatus(form.dataset.success ?? '已收到！', 'ok');
       } catch (err) {
         const message =
           err instanceof ApiError && err.status >= 400 && err.status < 500
@@ -102,7 +115,7 @@ import { site } from '@/config/site';
 <style>
   .signup {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: center;
     gap: 2.5rem;
     padding: clamp(2rem, 5vw, 3.5rem);
@@ -132,7 +145,8 @@ import { site } from '@/config/site';
     gap: 0.75rem;
   }
   input[type='email'] {
-    flex: 1 1 240px;
+    flex: 1 1 200px;
+    min-width: 0;
     min-height: 48px;
     padding: 0 1.125rem;
     border: 1px solid rgb(255 255 255 / 0.3);
@@ -170,7 +184,7 @@ import { site } from '@/config/site';
   }
   @media (max-width: 820px) {
     .signup {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

@@ -1,0 +1,15 @@
+---
+import type { SectionHeading } from '@/data/types';
+
+interface Props {
+  head: SectionHeading;
+}
+
+const { head } = Astro.props;
+---
+
+<div class="section-head">
+  <span class="eyebrow">{head.eyebrow}</span>
+  <h2>{head.title}</h2>
+  {head.subtitle && <p>{head.subtitle}</p>}
+</div>

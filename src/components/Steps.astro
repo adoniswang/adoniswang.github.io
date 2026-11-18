@@ -1,20 +1,18 @@
 ---
-import type { Step } from '@/data/types';
+import type { Step, SectionHeading } from '@/data/types';
+import SectionHead from './SectionHead.astro';
 
 interface Props {
-  steps: Step[];
+  head: SectionHeading;
+  items: Step[];
 }
 
-const { steps } = Astro.props;
+const { head, items: steps } = Astro.props;
 ---
 
 <section id="how" class="section">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">運作方式</span>
-      <h2>三個步驟開始</h2>
-      <p>從註冊到上線，不需要額外的維運人力。</p>
-    </div>
+    <SectionHead head={head} />
     <ol class="steps">
       {
         steps.map((s, i) => (

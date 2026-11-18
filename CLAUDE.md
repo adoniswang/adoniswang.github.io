@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-新創品牌入口網站（佔位品牌「Acme」），Astro 靜態網站，透過 GitHub Pages 發布。
+Filo 官網（記帳士事務所的 AI 單據整理服務），Astro 靜態網站，透過 GitHub Pages 發布。
 
 ## 指令
 

@@ -17,11 +17,11 @@ const content = await getLandingContent();
   <Header />
   <main id="main">
     <Hero hero={content.hero} />
-    <Features features={content.features} />
-    <Steps steps={content.steps} />
-    <Pricing plans={content.plans} />
-    <Faq items={content.faq} />
-    <SubscribeForm />
+    <Features {...content.features} />
+    <Steps {...content.steps} />
+    <Pricing {...content.pricing} />
+    <Faq {...content.faq} />
+    <SubscribeForm signup={content.signup} />
   </main>
   <Footer />
 </Base>

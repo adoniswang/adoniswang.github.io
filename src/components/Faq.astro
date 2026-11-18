@@ -1,19 +1,18 @@
 ---
-import type { FaqItem } from '@/data/types';
+import type { FaqItem, SectionHeading } from '@/data/types';
+import SectionHead from './SectionHead.astro';
 
 interface Props {
+  head: SectionHeading;
   items: FaqItem[];
 }
 
-const { items } = Astro.props;
+const { head, items } = Astro.props;
 ---
 
 <section id="faq" class="section">
   <div class="container faq">
-    <div class="section-head">
-      <span class="eyebrow">常見問題</span>
-      <h2>還有疑問嗎？</h2>
-    </div>
+    <SectionHead head={head} />
     <div class="faq__list">
       {
         items.map((item) => (

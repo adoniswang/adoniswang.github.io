@@ -1,21 +1,19 @@
 ---
-import type { Feature } from '@/data/types';
+import type { Feature, SectionHeading } from '@/data/types';
+import SectionHead from './SectionHead.astro';
 import Icon from './Icon.astro';
 
 interface Props {
-  features: Feature[];
+  head: SectionHeading;
+  items: Feature[];
 }
 
-const { features } = Astro.props;
+const { head, items: features } = Astro.props;
 ---
 
 <section id="features" class="section section--soft">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">功能</span>
-      <h2>新創需要的基礎建設，一次到位</h2>
-      <p>不必再重複造輪子。把時間花在讓產品與眾不同的地方。</p>
-    </div>
+    <SectionHead head={head} />
     <ul class="grid">
       {
         features.map((f) => (

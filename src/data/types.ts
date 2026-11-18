@@ -2,17 +2,30 @@
  * 頁面內容的型別。日後改由後端 API 提供時，
  * API 回應只要符合這些型別，元件就不需要改動。
  */
+export interface Link {
+  label: string;
+  href: string;
+}
+
+export interface SectionHeading {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}
+
 export interface Hero {
   eyebrow: string;
   title: string;
   highlight: string;
   subtitle: string;
-  primary: { label: string; href: string };
-  secondary: { label: string; href: string };
+  primary: Link;
+  secondary: Link;
 }
 
+export type IconName = 'upload' | 'scan' | 'check' | 'export' | 'users' | 'shield';
+
 export interface Feature {
-  icon: 'bolt' | 'shield' | 'chart' | 'plug' | 'users' | 'globe';
+  icon: IconName;
   title: string;
   body: string;
 }
@@ -28,7 +41,7 @@ export interface Plan {
   period?: string;
   description: string;
   features: string[];
-  cta: { label: string; href: string };
+  cta: Link;
   featured?: boolean;
 }
 
@@ -37,10 +50,18 @@ export interface FaqItem {
   a: string;
 }
 
+export interface Signup {
+  title: string;
+  body: string;
+  button: string;
+  success: string;
+}
+
 export interface LandingContent {
   hero: Hero;
-  features: Feature[];
-  steps: Step[];
-  plans: Plan[];
-  faq: FaqItem[];
+  features: { head: SectionHeading; items: Feature[] };
+  steps: { head: SectionHeading; items: Step[] };
+  pricing: { head: SectionHeading; items: Plan[] };
+  faq: { head: SectionHeading; items: FaqItem[] };
+  signup: Signup;
 }

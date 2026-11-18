@@ -1,13 +1,14 @@
 /**
  * 全站設定：品牌、導覽、聯絡方式。
- * 「Acme」是佔位名稱，換成你的新創名稱即可。
  */
 export const site = {
-  name: 'Acme',
-  title: 'Acme｜讓團隊更快把想法變成產品',
-  description: 'Acme 協助新創團隊用更少的工程時間，完成驗證、上線與成長。',
+  name: 'Filo',
+  title: 'Filo｜記帳士事務所的 AI 單據整理助理',
+  description:
+    'Filo 用 AI 自動辨識收據、發票與對帳單，整理成可直接匯入會計軟體的資料，讓事務所把時間留給更有價值的工作。',
   locale: 'zh-Hant',
   ogLocale: 'zh_TW',
+  // TODO: 換成正式的聯絡信箱
   contactEmail: 'hello@example.com',
   nav: [
     { label: '功能', href: '#features' },
@@ -15,10 +16,8 @@ export const site = {
     { label: '方案', href: '#pricing' },
     { label: '常見問題', href: '#faq' },
   ],
-  cta: { label: '搶先體驗', href: '#signup' },
-  social: [
-    { label: 'GitHub', href: 'https://github.com/adoniswang' },
-  ],
+  cta: { label: '申請試用', href: '#signup' },
+  social: [{ label: 'GitHub', href: 'https://github.com/adoniswang' }],
 } as const;
 
 export type SiteConfig = typeof site;

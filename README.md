@@ -1,6 +1,6 @@
 # adoniswang.github.io
 
-Adonis Wang Web Site：以 [Astro](https://astro.build) 建置的新創入口網頁，部署在 GitHub Pages。
+Filo 官網：記帳士事務所的 AI 單據整理服務，以 [Astro](https://astro.build) 建置，部署在 GitHub Pages。
 
 ## 開發
 
