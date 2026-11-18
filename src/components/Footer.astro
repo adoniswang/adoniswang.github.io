@@ -1,0 +1,50 @@
+---
+import { site } from '@/config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© {year} {site.name}. All rights reserved.</p>
+    <nav aria-label="頁尾連結">
+      <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+      {
+        site.social.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer">
+            {s.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  p {
+    margin: 0;
+  }
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  a {
+    color: var(--muted);
+  }
+  a:hover {
+    color: var(--text);
+  }
+</style>

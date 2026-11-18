@@ -1,23 +1,20 @@
-/vendor/
+# build output
+dist/
+.astro/
+
+# dependencies
 node_modules/
-npm-debug.log
-yarn-error.log
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+# logs
+npm-debug.log*
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
-storage/*.key
+# environment
 .env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

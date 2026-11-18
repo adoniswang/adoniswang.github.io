@@ -1,0 +1,121 @@
+---
+import type { Plan } from '@/data/types';
+import Icon from './Icon.astro';
+
+interface Props {
+  plans: Plan[];
+}
+
+const { plans } = Astro.props;
+---
+
+<section id="pricing" class="section section--soft">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">方案</span>
+      <h2>隨著團隊一起成長</h2>
+      <p>搶先體驗期間，所有方案皆可免費試用。</p>
+    </div>
+    <ul class="plans">
+      {
+        plans.map((p) => (
+          <li class:list={['plan', { 'plan--featured': p.featured }]}>
+            {p.featured && <span class="plan__tag">最受歡迎</span>}
+            <h3>{p.name}</h3>
+            <p class="plan__desc">{p.description}</p>
+            <p class="plan__price">
+              {p.price}
+              {p.period && <span>{p.period}</span>}
+            </p>
+            <ul class="plan__features">
+              {p.features.map((f) => (
+                <li>
+                  <Icon name="check" size={18} />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a class:list={['btn', p.featured ? 'btn--primary' : 'btn--ghost']} href={p.cta.href}>
+              {p.cta.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .plan {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .plan--featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow), 0 0 0 1px var(--accent);
+  }
+  .plan__tag {
+    position: absolute;
+    top: -0.75rem;
+    left: 2rem;
+    padding: 0.125rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .plan__desc {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+  .plan__price {
+    margin: 0.5rem 0 1.5rem;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .plan__price span {
+    margin-left: 0.25rem;
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .plan__features {
+    display: grid;
+    gap: 0.625rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+  .plan__features li {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .plan__features :global(svg) {
+    flex: none;
+    color: var(--accent);
+  }
+  .plan .btn {
+    margin-top: auto;
+  }
+</style>

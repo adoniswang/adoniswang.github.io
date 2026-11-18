@@ -1,0 +1,54 @@
+---
+import '@/styles/global.css';
+import { site } from '@/config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={site.ogLocale} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要內容</a>
+    <slot />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+</style>

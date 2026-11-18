@@ -1,0 +1,176 @@
+---
+import { site } from '@/config/site';
+---
+
+<section id="signup" class="section">
+  <div class="container">
+    <div class="signup">
+      <div class="signup__copy">
+        <h2>搶先體驗 {site.name}</h2>
+        <p>留下 Email，正式開放時我們會第一個通知你。不會寄送垃圾信。</p>
+      </div>
+
+      <form class="signup__form" data-subscribe-form data-contact={site.contactEmail} novalidate>
+        <label class="visually-hidden" for="signup-email">Email</label>
+        <input
+          id="signup-email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="you@company.com"
+          required
+        />
+        <!-- 防機器人欄位：真人看不到，有填值就丟棄 -->
+        <input class="visually-hidden" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn btn--primary" type="submit">加入候補名單</button>
+        <p class="signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { ApiError, apiFetch, isApiEnabled } from '@/lib/api';
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  /**
+   * 後端端點約定：POST {PUBLIC_API_BASE_URL}/subscribers
+   *   body: { email: string, source: string }
+   *   2xx 成功；4xx 回傳 { message: string } 會直接顯示給使用者
+   */
+  interface SubscribeRequest {
+    email: string;
+    source: string;
+  }
+
+  document.querySelectorAll<HTMLFormElement>('[data-subscribe-form]').forEach((form) => {
+    const input = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+    const honeypot = form.querySelector<HTMLInputElement>('input[name="company"]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const status = form.querySelector<HTMLElement>('.signup__status')!;
+
+    const setStatus = (message: string, tone: 'ok' | 'error' | '' = '') => {
+      status.textContent = message;
+      status.dataset.tone = tone;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+
+      if (!EMAIL_RE.test(email)) {
+        setStatus('請輸入有效的 Email。', 'error');
+        input.focus();
+        return;
+      }
+      if (honeypot.value) return;
+
+      // 尚未接後端：改用 mailto 備援
+      if (!isApiEnabled()) {
+        const subject = encodeURIComponent('搶先體驗申請');
+        const body = encodeURIComponent(`我想加入候補名單：${email}`);
+        window.location.href = `mailto:${form.dataset.contact}?subject=${subject}&body=${body}`;
+        setStatus('已開啟你的郵件程式，寄出後就完成登記了。', 'ok');
+        return;
+      }
+
+      button.disabled = true;
+      setStatus('送出中…');
+      try {
+        await apiFetch<unknown>('/subscribers', {
+          method: 'POST',
+          json: { email, source: 'landing' } satisfies SubscribeRequest,
+        });
+        form.reset();
+        setStatus('完成！正式開放時我們會通知你。', 'ok');
+      } catch (err) {
+        const message =
+          err instanceof ApiError && err.status >= 400 && err.status < 500
+            ? err.message
+            : '暫時無法送出，請稍後再試。';
+        setStatus(message, 'error');
+        console.error('[subscribe]', err);
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .signup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2.5rem;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border-radius: calc(var(--radius) * 1.5);
+    background:
+      radial-gradient(60% 120% at 100% 0%, color-mix(in srgb, #06b6d4 35%, transparent), transparent 60%),
+      var(--accent);
+    color: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    .signup {
+      background:
+        radial-gradient(60% 120% at 100% 0%, color-mix(in srgb, #06b6d4 25%, transparent), transparent 60%),
+        #3730a3;
+    }
+  }
+  h2 {
+    font-size: clamp(1.625rem, 3.5vw, 2.125rem);
+  }
+  .signup__copy p {
+    margin: 0;
+    opacity: 0.85;
+  }
+  .signup__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  input[type='email'] {
+    flex: 1 1 240px;
+    min-height: 48px;
+    padding: 0 1.125rem;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.12);
+    color: #fff;
+    font: inherit;
+  }
+  input[type='email']::placeholder {
+    color: rgb(255 255 255 / 0.65);
+  }
+  input[type='email']:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .signup__form .btn {
+    min-height: 48px;
+    background: #fff;
+    color: #312e81;
+  }
+  .signup__form .btn:hover {
+    background: #eef0ff;
+  }
+  .signup__form .btn:focus-visible {
+    outline-color: #fff;
+  }
+  .signup__status {
+    flex-basis: 100%;
+    min-height: 1.7em;
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+  .signup__status[data-tone='error'] {
+    color: #fecaca;
+  }
+  @media (max-width: 820px) {
+    .signup {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

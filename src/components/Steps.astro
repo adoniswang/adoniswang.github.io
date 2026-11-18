@@ -1,0 +1,70 @@
+---
+import type { Step } from '@/data/types';
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<section id="how" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">運作方式</span>
+      <h2>三個步驟開始</h2>
+      <p>從註冊到上線，不需要額外的維運人力。</p>
+    </div>
+    <ol class="steps">
+      {
+        steps.map((s, i) => (
+          <li class="step">
+            <span class="step__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .step {
+    position: relative;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border);
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .step__num {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>
