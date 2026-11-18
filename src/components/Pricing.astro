@@ -33,9 +33,11 @@ const { head, items: plans } = Astro.props;
                 </li>
               ))}
             </ul>
-            <a class:list={['btn', p.featured ? 'btn--primary' : 'btn--ghost']} href={p.cta.href}>
-              {p.cta.label}
-            </a>
+            {p.cta && (
+              <a class:list={['btn', p.featured ? 'btn--primary' : 'btn--ghost']} href={p.cta.href}>
+                {p.cta.label}
+              </a>
+            )}
           </li>
         ))
       }

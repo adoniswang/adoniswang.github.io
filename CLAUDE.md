@@ -16,16 +16,16 @@ Node 版本見 `.nvmrc`（Astro 7 需要 Node >= 22.23.4）。
 - `src/data/`：頁面內容（`landing.ts`）與型別（`types.ts`）
 - `src/lib/content.ts`：build 時取得內容的唯一入口，日後改從 API 取資料只改這裡
 - `src/lib/api.ts`：`apiFetch` / `isApiEnabled`，build 時與瀏覽器端共用
-- `src/components/`：每個區塊一個元件；`SubscribeForm.astro` 是瀏覽器端呼叫 API 的範例
+- `src/components/`：每個區塊一個元件
 - `public/`：原樣複製的靜態檔
 - `.github/workflows/deploy.yml`：push 到 `main` 時 build 並部署 Pages
 
 ## API 整合
 
 - 後端位址：環境變數 `PUBLIC_API_BASE_URL`（本機用 `.env`，CI 用 repo Actions Variables）
-- 未設定時是純靜態模式，表單改用 mailto 備援
+- 未設定時是純靜態模式；`isApiEnabled()` 為 false 時呼叫端要有靜態備援
 - `PUBLIC_` 變數會打包進前端，不可放密鑰；後端需允許本站的 CORS
-- 目前的端點約定：`POST /subscribers`，body 是 `{ email, source }`
+- 目前頁面沒有呼叫任何 API 端點（試用申請表單已移除，可從 git 歷史 `ef219a0` 找回 `SubscribeForm.astro`）
 
 ## 慣例
 

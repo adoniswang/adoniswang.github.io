@@ -19,7 +19,7 @@ export interface Hero {
   highlight: string;
   subtitle: string;
   primary: Link;
-  secondary: Link;
+  secondary?: Link;
 }
 
 export type IconName = 'upload' | 'scan' | 'check' | 'export' | 'users' | 'shield';
@@ -41,7 +41,7 @@ export interface Plan {
   period?: string;
   description: string;
   features: string[];
-  cta: Link;
+  cta?: Link;
   featured?: boolean;
 }
 
@@ -50,18 +50,10 @@ export interface FaqItem {
   a: string;
 }
 
-export interface Signup {
-  title: string;
-  body: string;
-  button: string;
-  success: string;
-}
-
 export interface LandingContent {
   hero: Hero;
   features: { head: SectionHeading; items: Feature[] };
   steps: { head: SectionHeading; items: Step[] };
   pricing: { head: SectionHeading; items: Plan[] };
   faq: { head: SectionHeading; items: FaqItem[] };
-  signup: Signup;
 }

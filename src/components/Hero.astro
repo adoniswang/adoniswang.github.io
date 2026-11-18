@@ -17,7 +17,7 @@ const { hero } = Astro.props;
     <p class="hero__subtitle">{hero.subtitle}</p>
     <div class="hero__actions">
       <a class="btn btn--primary" href={hero.primary.href}>{hero.primary.label}</a>
-      <a class="btn btn--ghost" href={hero.secondary.href}>{hero.secondary.label}</a>
+      {hero.secondary && <a class="btn btn--ghost" href={hero.secondary.href}>{hero.secondary.label}</a>}
     </div>
   </div>
 </section>

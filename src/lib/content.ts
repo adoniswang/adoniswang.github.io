@@ -15,7 +15,7 @@ import type { LandingContent } from '@/data/types';
  *   }
  *
  * 內容更新後需要重新 build（例如由後端觸發 GitHub Actions 的 workflow_dispatch）。
- * 需要即時資料的區塊則改在瀏覽器端呼叫 apiFetch，參考 SubscribeForm.astro。
+ * 需要即時資料的區塊則改在瀏覽器端 <script> 中呼叫 apiFetch。
  */
 export async function getLandingContent(): Promise<LandingContent> {
   return landing;

@@ -16,7 +16,6 @@ export const site = {
     { label: '方案', href: '#pricing' },
     { label: '常見問題', href: '#faq' },
   ],
-  cta: { label: '申請試用', href: '#signup' },
   social: [{ label: 'GitHub', href: 'https://github.com/adoniswang' }],
 } as const;
 

@@ -12,8 +12,7 @@ export const landing: LandingContent = {
     highlight: '交給 Filo 整理。',
     subtitle:
       '客戶用 LINE 或網頁上傳收據、發票與對帳單，Filo 用 AI 自動辨識日期、金額、統編與科目。你只要確認，就能匯出到慣用的會計軟體。',
-    primary: { label: '申請試用', href: '#signup' },
-    secondary: { label: '看看怎麼運作', href: '#how' },
+    primary: { label: '看看怎麼運作', href: '#how' },
   },
   features: {
     head: {
@@ -88,7 +87,6 @@ export const landing: LandingContent = {
         period: '/ 首月',
         description: '先用實際單據評估辨識品質。',
         features: ['最多 5 位客戶', '每月 200 張單據', 'Excel / CSV 匯出'],
-        cta: { label: '申請試用', href: '#signup' },
       },
       {
         name: '標準',
@@ -96,7 +94,6 @@ export const landing: LandingContent = {
         period: '/ 月',
         description: '適合中小型記帳士事務所。',
         features: ['客戶數不限', '每月 1,000 張單據', '3 位同仁帳號', 'LINE 上傳通道', 'Email 支援'],
-        cta: { label: '申請試用', href: '#signup' },
         featured: true,
       },
       {
@@ -132,11 +129,5 @@ export const landing: LandingContent = {
         a: '資料在傳輸與儲存時都會加密，不同客戶的資料互相隔離，也不會拿來訓練任何公開的 AI 模型。',
       },
     ],
-  },
-  signup: {
-    title: '申請 Filo 搶先試用',
-    body: '留下 Email，我們會與你聯絡，安排用你的實際單據試跑一次。',
-    button: '申請試用',
-    success: '已收到！我們會在 2 個工作天內與你聯絡。',
   },
 };
