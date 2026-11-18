@@ -14,6 +14,8 @@ export const site = {
     { label: '方案', href: '#pricing' },
     { label: '常見問題', href: '#faq' },
   ],
+  /** 頁尾的低調說明文字 */
+  footerNote: 'Filo 仍在開發與推廣階段，頁面內容可能隨時調整，敬請期待。',
   social: [{ label: 'GitHub', href: 'https://github.com/adoniswang' }],
 } as const;
 

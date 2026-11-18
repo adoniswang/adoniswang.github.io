@@ -2,20 +2,31 @@
 import { site } from '@/config/site';
 
 const year = new Date().getFullYear();
+// 以全形逗號切段，讓換行只發生在逗號之後，避免詞語被拆開
+const noteParts = site.footerNote ? site.footerNote.split(/(?<=，)/) : [];
 ---
 
 <footer class="footer">
-  <div class="container footer__inner">
-    <p>© {year} {site.name}. All rights reserved.</p>
-    <nav aria-label="頁尾連結">
-      {
-        site.social.map((s) => (
-          <a href={s.href} target="_blank" rel="noopener noreferrer">
-            {s.label}
-          </a>
-        ))
-      }
-    </nav>
+  <div class="container">
+    {
+      noteParts.length > 0 && (
+        <p class="footer__note">
+          {noteParts.map((part) => <span>{part}</span>)}
+        </p>
+      )
+    }
+    <div class="footer__inner">
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <nav aria-label="頁尾連結">
+        {
+          site.social.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer">
+              {s.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
   </div>
 </footer>
 
@@ -35,6 +46,17 @@ const year = new Date().getFullYear();
   }
   p {
     margin: 0;
+  }
+  .footer__note {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  .footer__note span {
+    display: inline-block;
   }
   nav {
     display: flex;
